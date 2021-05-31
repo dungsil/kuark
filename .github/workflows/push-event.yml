@@ -69,7 +69,7 @@ jobs:
           distribution: adopt
       - run: gradle build
   publish-snapshot:
-    name: Publish SANPSHOT
+    name: Publish Snapshot
     runs-on: ubuntu-latest
     needs:
       - build
