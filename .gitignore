@@ -1,0 +1,14 @@
+# Common
+*.log
+
+# Visual Studio Code
+.vscode/
+
+# IntelliJ Platform
+.idea/
+out/
+*.iml
+
+# Gradle
+.gradle/
+build/

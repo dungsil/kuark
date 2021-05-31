@@ -1,0 +1,42 @@
+name: Push
+on:
+  push:
+    paths:
+      - buildSrc/**/*
+      - src/**/*
+      - build.gradle.kts
+      - settings.gradke.kts
+
+jobs:
+  ktlint:
+    name: 💅 Kotlin code lint
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('build.gradle.kts', 'buildSrc/**/*', 'gradle/**/*') }}
+          path: |
+            gradle/
+            .gradle/
+      - uses: actions/setup-java@v2
+        with:
+          java-version: '11'
+          distribution: adopt
+      - run: gradle ktlintCheck
+  detekt:
+    name: 🔍 Kotlin static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: actions/cache@v2
+        with:
+          key: ${{ runner.os }}-${{ hashFiles('build.gradle.kts', 'gradle/**/*', 'buildSrc/**/*') }}
+          path: |
+            gradle/
+            .gradle/
+      - uses: actions/setup-java@v2
+        with:
+          java-version: 11
+          distribution: adopt
+      - run: gradle detekt
