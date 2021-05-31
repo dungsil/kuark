@@ -23,7 +23,16 @@ jobs:
         with:
           java-version: '11'
           distribution: adopt
-      - run: gradle ktlintCheck
+      - run: gradle ktlintFormat
+      - name: Commit formatting code
+        uses: EndBug/add-and-commit@v7
+        with:
+          author_name: github-actions
+          author_email: 41898282+github-actions[bot]@users.noreply.github.com
+          branch: main
+          add: '.'
+          message: 'style: linting code [skip ci]'
+          push: true
   detekt:
     name: 🔍 Kotlin static analysis
     runs-on: ubuntu-latest
