@@ -68,7 +68,6 @@ test {
 
 publishing {
   publications.withType<MavenPublication> {
-    val owner = System.getenv("GITHUB_USER")
     val repository = System.getenv("GITHUB_REPOSITORY")
     val repositoryUrl = System.getenv("GITHUB_SERVER_URL") + "/" + repository
     val commitId = System.getenv("GITHUB_SHA")
@@ -77,7 +76,7 @@ publishing {
       maven {
         name = "GithubPackages"
         version = "0.1.0+$commitId"
-        url = uri("https://maven.pkg.github.com/$owner")
+        url = uri("https://maven.pkg.github.com/$repository")
 
         credentials {
           username = System.getenv("GITHUB_USER")
