@@ -10,8 +10,8 @@ package io.kuark.text
 /**
  * Returns append [prefix], if char sequence is not empty.
  */
-public fun CharSequence.addPrefixIfNotEmpty(prefix: CharSequence) : CharSequence {
-  return if(this.isNotEmpty()) {
+public fun CharSequence.addPrefixIfNotEmpty(prefix: CharSequence): CharSequence {
+  return if (this.isNotEmpty()) {
     "$prefix$this"
   } else {
     this
