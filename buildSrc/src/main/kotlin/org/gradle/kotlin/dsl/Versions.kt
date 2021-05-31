@@ -14,3 +14,6 @@ const val KTLINT_GRADLE_VERSION = "10.0.0"
  * @see [detekt/detekt](https://github.com/detekt/detekt)
  */
 const val DETEKT_VERSION = "1.17.0"
+
+const val KOTLIN_LOGGING_API_VERSION = "1.12.5"
+const val KOTLIN_LOGGING_VERSION = "2.0.6"
