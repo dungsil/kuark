@@ -6,6 +6,7 @@ on:
       - src/**/*
       - build.gradle.kts
       - settings.gradke.kts
+  pull_request:
 
 jobs:
   ktlint:
