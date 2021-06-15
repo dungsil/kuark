@@ -13,6 +13,6 @@ SPDX-License-Identifier: MIT
 ```
 
 ### Copyright
-이 프로젝트에 표시된 "Kotlin", "코틀린"은 [JetBrains](https://www.jetbrains.com)의 등록상표입니다. 
+이 프로젝트에 표시된 "Kotlin", "코틀린"은 [JetBrains  s.r.o.](https://www.jetbrains.com)의 등록상표입니다. 
 Kuark 프로젝트는 JetBrains의 [브랜드 가이드라인](https://www.jetbrains.com/company/brand)을 준수합니다.
  * 저작권 침해 문의는 [이슈](https://github.com/dungsil/kuark/issues)를 남겨주세요.
