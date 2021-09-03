@@ -5,8 +5,7 @@ plugins {
   id("idea")
 
   // Kotlin
-  kotlin("multiplatform") version "1.5.30"
-  kotlin("kapt") version "1.5.30"
+  kotlin("multiplatform") version "1.5.30" apply false
 
   // Kotlin code quality
   id("org.jetbrains.dokka") version "1.5.0"
@@ -14,31 +13,48 @@ plugins {
   id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
-group = ""
-version = "0.0.0"
+allprojects {
+  group = ""
+  version = "0.0.0"
 
-repositories {
-  mavenCentral()
+  repositories {
+    mavenCentral()
+  }
 }
 
-kotlin {
-  jvm {
-    withJava()
-  }
+subprojects {
+  apply(plugin = "kotlin-multiplatform")
 
-  sourceSets {
-    commonMain {
-    }
-
-    commonTest {
-      dependencies {
-        implementation(kotlin("test-common"))
+  configure<org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension> {
+    mingwX64 {
+      binaries {
+        executable()
       }
     }
 
-    val jvmTest by getting {
-      dependencies {
-        implementation(kotlin("test-junit5"))
+    macosX64 {
+      binaries {
+        executable()
+      }
+    }
+
+    linuxX64 {
+      binaries {
+        executable()
+      }
+    }
+
+    sourceSets {
+      val commonMain by getting {
+        dependencies {
+          implementation(kotlin("stdlib-common"))
+        }
+      }
+
+      val commonTest by getting {
+        dependencies {
+          implementation(kotlin("test-common"))
+        }
       }
     }
   }
