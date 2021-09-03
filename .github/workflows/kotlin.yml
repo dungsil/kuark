@@ -1,0 +1,99 @@
+name: Kotlin CI with Gradle
+on:
+  push:
+    paths:
+      - "*.kt"
+      - "*.kts"
+      - "gradle.properties"
+      - ".github/workflows/kotlin.yml"
+  pull_request:
+    paths:
+      - "*.kt"
+      - "*.kts"
+      - "gradle.properties"
+      - ".github/workflows/kotlin.yml"
+
+jobs:
+  ktlint:
+    name: 💅 Kotlin code lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout sourcecode
+        uses: actions/checkout@v2
+      - name: Setup JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 16
+          architecture: x64
+      - name: 📥 Download cache
+        uses: actions/cache@v2
+        with:
+          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
+          path: |
+            .gradle/
+            ~/.gradle/
+      - run: gradle ktlintFormat
+      - uses: EndBug/add-and-commit@v7
+        with:
+          default_author: github_actions
+          message: "style: Kotlin code linting [skip ci]"
+  detekt:
+    name: 🔍 Kotlin static analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout sourcecode
+        uses: actions/checkout@v2
+      - name: Setup JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: adopt
+          java-version: 16
+          architecture: x64
+      - name: 📥 Download build cache
+        uses: actions/cache@v2
+        with:
+          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
+          path: |
+            .gradle/
+            ~/.gradle/
+      - run: gradle detekt
+  build:
+    strategy:
+      matrix:
+        java-version:
+          - 11
+          - 16
+        java-distribution:
+          - adopt
+          - adopt-openj9
+    runs-on: ubuntu-latest
+    name: 🏗 Kotlin build (with ${{ matrix.java-distribution }} v${{ matrix.java-version }})
+    needs:
+      - ktlint
+      - detekt
+    steps:
+      - name: 📥 Checkout sourcecode
+        uses: actions/checkout@v2
+      - name: Setup JDK ${{ matrix.java-version }}
+        uses: actions/setup-java@v2
+        with:
+          distribution: ${{ matrix.java-distribution }}
+          java-version: ${{ matrix.java-version }}
+          architecture: x64
+      - name: 📥 Download cache
+        uses: actions/cache@v2
+        with:
+          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
+          path: |
+            .gradle/
+            ~/.gradle/
+      - name: ✔ Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: 🏗 Build
+        run: "./gradlew build"
+      - name: 📤 Upload build cache
+        uses: actions/cache@v2
+        with:
+          key: build-${{ runner.os }}-${{ hashFiles('build/**') }}
+          path: build/**

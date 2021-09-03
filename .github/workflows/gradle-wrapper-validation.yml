@@ -1,0 +1,17 @@
+name: Official Gradle Wrapper Validation Action
+on:
+  push:
+    paths:
+      - "**/gradle/**/*"
+      - "**/gradlew*"
+  pull_request:
+    paths:
+      - "**/gradle/**/*"
+      - "**/gradlew*"
+
+jobs:
+  validation:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - uses: gradle/wrapper-validation-action@v1
