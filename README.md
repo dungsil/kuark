@@ -8,14 +8,18 @@ Kuark(쿼크)는 물질을 가장 기본적인 입자인 쿼크(Quark)와 코틀
  - 비종속성
  - 코틀린 멀티플랫폼 지원
 
-## 🔰 시작하기
+## 🔰 사용법
 TODO
 
-## 🙌 기여하기
+## 🙌 기여
 Kuark는 모든 형식의 기여를 환영합니다!
 
 ## 📜 라이선스
 이 프로젝트는 MIT 라이선스에 따라 배포됩니다. 자세한 내용은 [`LICENSE`][LINK_LICENSE] 파일을 참고해주세요.
+
+```
+SPDX-License-Identifier: MIT
+```
 
 ## 💬 고지사항
 Copyright © 2021 JetBrains s.r.o. Kotlin and the Kotlin logo are registered trademarks of JetBrains s.r.o.
