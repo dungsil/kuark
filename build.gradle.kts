@@ -5,7 +5,7 @@ plugins {
   id("idea")
 
   // Kotlin
-  kotlin("multiplatform") version "1.5.30" apply false
+  kotlin("multiplatform") version "1.5.31" apply false
 
   // Kotlin code quality
   id("org.jetbrains.dokka") version "1.5.30"
