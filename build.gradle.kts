@@ -9,7 +9,7 @@ plugins {
 
   // Kotlin code quality
   id("org.jetbrains.dokka") version "1.5.30"
-  id("org.jlleitschuh.gradle.ktlint") version "10.1.0"
+  id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
   id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
 
