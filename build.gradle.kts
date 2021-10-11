@@ -8,7 +8,7 @@ plugins {
   kotlin("multiplatform") version "1.5.31" apply false
 
   // Kotlin code quality
-  id("org.jetbrains.dokka") version "1.5.30"
+  id("org.jetbrains.dokka") version "1.5.31"
   id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
   id("io.gitlab.arturbosch.detekt") version "1.18.1"
 }
