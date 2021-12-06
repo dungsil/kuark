@@ -22,7 +22,7 @@ SPDX-License-Identifier: MIT
 ```
 
 ## 💬 고지사항
-Copyright © 2021 JetBrains s.r.o. Kotlin and the Kotlin logo are registered trademarks of JetBrains s.r.o.
+Kotlin and the Kotlin logo are registered trademarks of JetBrains s.r.o.
 
 *이 프로젝트 내에서 사용된 코틀린 및 Kotlin은 제트브레인(JetBrains s.r.o.)의 등록상표입니다.*
 
