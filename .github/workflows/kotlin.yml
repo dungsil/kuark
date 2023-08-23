@@ -22,9 +22,9 @@ jobs:
           - 11
           - 17
     runs-on: ubuntu-latest
-    name: 🏗 Kotlin build (with OpenJDK v${{ matrix.java-version }})
+    name: 🏗 build with v${{ matrix.java-version }}
     steps:
-      - name: 📥 Checkout sourcecode
+      - name: 📥 Checkout source
         uses: actions/checkout@v2
       - name: Setup JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v2
@@ -48,3 +48,30 @@ jobs:
         with:
           key: build-${{ runner.os }}-${{ hashFiles('build/**') }}
           path: build/**
+  publish:
+    name: 📨 Publish
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout source
+        uses: actions/checkout@v2
+      - name: Setup JDK v8
+        uses: actions/setup-java@v2
+        with:
+          java-version: 8
+          distribution: temurin
+          architecture: x64
+      - name: 📥 Download cache
+        uses: actions/cache@v2
+        with:
+          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
+          path: |
+            .gradle/
+            ~/.gradle/
+      - name: ✔ Grant execute permission for gradlew
+        run: chmod +x gradlew
+      - name: 📨 Publish
+        run: "./gradlew publish"
+        env:
+          GH_TOKEN: ${{ github.token }}
+          OSRH_USERNAME: ${{ secrets.OSRH_USERNAME }}
+          OSRH_PASSWORD: ${{ secrets.OSRH_PASSWORD }}
