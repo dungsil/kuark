@@ -14,71 +14,21 @@ on:
       - ".github/workflows/kotlin.yml"
 
 jobs:
-  ktlint:
-    name: 💅 Kotlin code lint
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout sourcecode
-        uses: actions/checkout@v2
-      - name: Setup JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v2
-        with:
-          distribution: adopt
-          java-version: 16
-          architecture: x64
-      - name: 📥 Download cache
-        uses: actions/cache@v2
-        with:
-          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
-          path: |
-            .gradle/
-            ~/.gradle/
-      - run: gradle ktlintFormat
-      - uses: EndBug/add-and-commit@v7
-        with:
-          default_author: github_actions
-          message: "style: Kotlin code linting [skip ci]"
-  detekt:
-    name: 🔍 Kotlin static analysis
-    runs-on: ubuntu-latest
-    steps:
-      - name: 📥 Checkout sourcecode
-        uses: actions/checkout@v2
-      - name: Setup JDK ${{ matrix.java-version }}
-        uses: actions/setup-java@v2
-        with:
-          distribution: adopt
-          java-version: 16
-          architecture: x64
-      - name: 📥 Download build cache
-        uses: actions/cache@v2
-        with:
-          key: gradle-${{ runner.os }}-${{ hashFiles('gradle/**') }}
-          path: |
-            .gradle/
-            ~/.gradle/
-      - run: gradle detekt
   build:
     strategy:
       matrix:
         java-version:
+          - 8
           - 11
-          - 16
-        java-distribution:
-          - adopt
-          - adopt-openj9
+          - 17
     runs-on: ubuntu-latest
-    name: 🏗 Kotlin build (with ${{ matrix.java-distribution }} v${{ matrix.java-version }})
-    needs:
-      - ktlint
-      - detekt
+    name: 🏗 Kotlin build (with OpenJDK v${{ matrix.java-version }})
     steps:
       - name: 📥 Checkout sourcecode
         uses: actions/checkout@v2
       - name: Setup JDK ${{ matrix.java-version }}
         uses: actions/setup-java@v2
         with:
-          distribution: ${{ matrix.java-distribution }}
           java-version: ${{ matrix.java-version }}
           architecture: x64
       - name: 📥 Download cache
