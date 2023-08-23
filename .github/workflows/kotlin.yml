@@ -30,6 +30,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           java-version: ${{ matrix.java-version }}
+          distribution: temurin
           architecture: x64
       - name: 📥 Download cache
         uses: actions/cache@v2
