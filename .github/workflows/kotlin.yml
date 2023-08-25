@@ -68,6 +68,11 @@ jobs:
           path: |
             .gradle/
             ~/.gradle/
+      - name: 📥 Download build artifacts
+        uses: actions/cache@v2
+        with:
+          key: gradle-${{ runner.os }}-${{ hashFiles('build/**') }}
+          path: build/**
       - name: ✔ Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: 📨 Publish
