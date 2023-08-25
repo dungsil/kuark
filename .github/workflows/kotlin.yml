@@ -45,6 +45,7 @@ jobs:
         run: "./gradlew build"
       - name: 📤 Upload build cache
         uses: actions/cache@v2
+        if: ${{ matrix.java-version }} == 8
         with:
           key: build-${{ runner.os }}-${{ hashFiles('build/**') }}
           path: build/**
