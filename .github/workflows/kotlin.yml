@@ -45,9 +45,8 @@ jobs:
         run: "./gradlew build"
       - name: 📤 Upload build cache
         uses: actions/cache@v2
-        if: ${{ matrix.java-version }} == 8
         with:
-          key: build-${{ runner.os }}-${{ hashFiles('build/**') }}
+          key: build-${{ runner.os }}-${{ matrix.java-version }}
           path: build/**
   publish:
     name: 📨 Publish
@@ -72,7 +71,7 @@ jobs:
       - name: 📥 Download build artifacts
         uses: actions/cache@v2
         with:
-          key: gradle-${{ runner.os }}-${{ hashFiles('build/**') }}
+          key: build-${{ runner.os }}-${{ matrix.java-version }}
           path: build/**
       - name: ✔ Grant execute permission for gradlew
         run: chmod +x gradlew
